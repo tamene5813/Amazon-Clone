@@ -20,7 +20,7 @@ function Auth() {
   });
 
   const [{ user }, dispatch] = useContext(DataContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   //   console.log(user);
 
@@ -128,7 +128,9 @@ function Auth() {
           )}
         </button>
         {error && (
-          <small style={{ paddingTop: "5px", color: "red" }}>{"Incorrect Password or Email"}</small>
+          <small style={{ paddingTop: "5px", color: "red" }}>
+            {"Incorrect Password or Email"}
+          </small>
         )}
       </div>
 
