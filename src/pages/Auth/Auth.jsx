@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import styles from "./signup.module.css";
 import { auth } from "../../Utility/firebase";
 import {
@@ -21,6 +21,8 @@ function Auth() {
 
   const [{ user }, dispatch] = useContext(DataContext);
   const navigate = useNavigate();
+  const naveStateData = useLocation();
+  console.log(naveStateData);
 
   //   console.log(user);
 
@@ -38,7 +40,7 @@ function Auth() {
             user: userInfo.user,
           });
           setLoading({ ...loading, signIn: false });
-          navigate("/");
+          navigate(naveStateData?.state?.redirect || "/");
         })
         .catch((err) => {
           setError(err.message);
@@ -54,7 +56,7 @@ function Auth() {
             user: userInfo.user,
           });
           setLoading({ ...loading, signUp: false });
-          navigate("/");
+          navigate(naveStateData?.state?.redirect || "/");
         })
         .catch((err) => {
           setError(err.message);
@@ -75,6 +77,18 @@ function Auth() {
       {/* form */}
       <div className={styles.login_Container}>
         <h1>Sign in</h1>
+        {naveStateData?.state?.msg && (
+          <small
+            style={{
+              padding: "5px",
+              textAlign: "center",
+              color: "red",
+              fontWeight: "bold",
+            }}
+          >
+            {naveStateData?.state?.msg}
+          </small>
+        )}
         <form action="">
           <div>
             <label htmlFor="email">E-mail</label>
